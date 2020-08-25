@@ -1,4 +1,4 @@
-# AOC17 day 01
+# AOC17 day 06
 
 
 def load_data(f_name):
@@ -8,4 +8,5 @@ def load_data(f_name):
 
 
 def run():
-    data = load_data("Day01.txt")
+    data = load_data("Day06.txt")
+
