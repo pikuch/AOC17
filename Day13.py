@@ -21,6 +21,19 @@ def move_firewall_by(delay, firewall):
                 additional -= 1
 
 
+def position_at_depth(d, t, firewall):
+    full_cycles = (d + t) // ((firewall[d]["range"] - 1) * 2)
+    additional = (d + t) - full_cycles * (firewall[d]["range"] - 1) * 2
+    pos = firewall[d]["pos"]
+    direction = firewall[d]["dir"]
+    while additional:
+        if not 0 <= pos + direction < firewall[d]["range"]:
+            direction = -direction
+        pos += direction
+        additional -= 1
+    return pos
+
+
 def check_severity(firewall):
     severity = 0
     for depth in range(len(firewall)):
@@ -42,6 +55,14 @@ def check_can_pass(delay, firewall):
     return True
 
 
+def check_can_pass_v2(delay, firewall):
+    for depth in range(len(firewall)):
+        if firewall[depth] is not None:
+            if position_at_depth(depth, delay, firewall) == 0:
+                return False
+    return True
+
+
 def find_min_delay(firewall):
     delay = 0
     while True:
@@ -52,6 +73,19 @@ def find_min_delay(firewall):
             break
         delay += 1
     print(" found!")
+    return delay
+
+
+def find_min_delay_v2(firewall):
+    delay = 0
+    reset_firewall(firewall)
+    while True:
+        if delay % 1000 == 0:
+            print(f"\rchecking delay {delay}+", end="")
+        if check_can_pass_v2(delay, firewall):
+            break
+        delay += 1
+    print(" ..found!")
     return delay
 
 
@@ -88,7 +122,9 @@ def load_data(f_name):
 
 def run():
     data = load_data("Day13.txt")
+    # test data, should give 24 and 10
+    # data = "0: 3\n1: 2\n4: 4\n6: 4"
     firewall = construct_firewall(data)
     severity = check_severity(firewall)
     print(f"Starting at moment 0 gives severity {severity}")
-    print(f"Minimum delay to not get caught is {find_min_delay(firewall)}")
+    print(f"Minimum delay to not get caught is {find_min_delay_v2(firewall)}")
