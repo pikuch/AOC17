@@ -1,5 +1,6 @@
 # AOC17 day 10
 from functools import reduce
+from KnotHash import KnotHash
 
 
 def knot_hash(nums, spans):
@@ -55,7 +56,6 @@ def run():
     nums = list(range(256))
     knot_hash(nums, spans)
     print(f"The result of multiplying the first two numbers is {nums[0] * nums[1]}")
-    nums = list(range(256))
     spans2 = list(map(ord, data)) + [17, 31, 73, 47, 23]
-    sparse_hash(nums, spans2)
-    print(f"The dense hash is {dense_hash(nums)}")
+    kh = KnotHash(spans2)
+    print(f"The dense hash is {kh.hex()}")
