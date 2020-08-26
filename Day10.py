@@ -56,6 +56,5 @@ def run():
     nums = list(range(256))
     knot_hash(nums, spans)
     print(f"The result of multiplying the first two numbers is {nums[0] * nums[1]}")
-    spans2 = list(map(ord, data)) + [17, 31, 73, 47, 23]
-    kh = KnotHash(spans2)
+    kh = KnotHash(data)
     print(f"The dense hash is {kh.hex()}")
