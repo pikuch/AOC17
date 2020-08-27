@@ -1,5 +1,4 @@
 # AOC17 day 14
-from functools import reduce
 from KnotHash import KnotHash
 
 
