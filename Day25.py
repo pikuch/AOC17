@@ -1,4 +1,5 @@
 # AOC17 day 25
+from Turing import Turing
 
 
 def load_data(f_name):
@@ -9,4 +10,7 @@ def load_data(f_name):
 
 def run():
     data = load_data("Day25.txt")
-
+    tur = Turing()
+    tur.load(data.split("\n"))
+    checksum = tur.run()
+    print(f"The checksum is {checksum}")
